@@ -13,7 +13,6 @@ public class FileRenameAction implements Action {
 
     public synchronized void renameFile (){
         renamedFile.renameTo(new File((String)renamedFile.getParent()+"\\"+newName));
-        executor.shutdown();
     }
 
     @Override

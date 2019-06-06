@@ -25,17 +25,15 @@ public class FileCopyAction implements Action {
     private synchronized void copyFile() throws IOException {
 
 
-        InputStream is = null;
-        OutputStream os = null;
-            is = new FileInputStream(source);
-            os = new FileOutputStream(destination);
+        try(InputStream is = new FileInputStream(source);
+            OutputStream os = new FileOutputStream(destination)) {
+
             byte[] buffer = new byte[1024];
             int length;
-                while ((length = is.read(buffer)) > 0) {
-                    os.write(buffer, 0, length);
-                }
-        executor.shutdown();
-
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        }
     }
 
     @Override
