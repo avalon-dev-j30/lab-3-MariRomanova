@@ -1,5 +1,8 @@
 package ru.avalon.java.actions;
 
+import java.io.*;
+import java.nio.file.Files;
+
 /**
  * Действие, которое копирует файлы в пределах дискового
  * пространства.
@@ -8,12 +11,43 @@ public class FileCopyAction implements Action {
     /**
      * {@inheritDoc}
      */
+   private File source;
+   private File destination;
+
+
+
+    public FileCopyAction(File source, File destination){
+        this.source = source;
+        this.destination = destination;
+
+    }
+
+    private synchronized void copyFile() throws IOException {
+
+
+        InputStream is = null;
+        OutputStream os = null;
+            is = new FileInputStream(source);
+            os = new FileOutputStream(destination);
+            byte[] buffer = new byte[1024];
+            int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+
+
+    }
+
     @Override
     public void run() {
         /*
          * TODO №2 Реализуйте метод run класса FileCopyAction
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        try {
+            copyFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -24,6 +58,6 @@ public class FileCopyAction implements Action {
         /*
          * TODO №3 Реализуйте метод close класса FileCopyAction
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+
     }
 }
