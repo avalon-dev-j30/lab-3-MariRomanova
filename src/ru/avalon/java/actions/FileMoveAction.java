@@ -20,6 +20,7 @@ public class FileMoveAction implements Action {
 
     public synchronized void moveFile() {
         movedFile.renameTo(new File(newDir, movedFile.getName()));
+        executor.shutdown();
     }
 
     @Override

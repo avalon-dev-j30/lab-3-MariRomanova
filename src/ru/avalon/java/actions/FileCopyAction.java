@@ -34,7 +34,7 @@ public class FileCopyAction implements Action {
                 while ((length = is.read(buffer)) > 0) {
                     os.write(buffer, 0, length);
                 }
-
+        executor.shutdown();
 
     }
 

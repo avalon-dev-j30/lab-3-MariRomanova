@@ -12,6 +12,7 @@ public class FileDeleteAction implements Action {
 
     public synchronized void deleteFile(){
         deleted.delete();
+        executor.shutdown();
     }
 
     @Override
